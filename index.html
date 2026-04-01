@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nishan Acharya | Portfolio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+         :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --text: #0f172a;
+            --muted: #64748b;
+            --card: #ffffff;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            width: 92%;
+            max-width: 1100px;
+            margin: auto;
+        }
+        
+        section {
+            padding: 90px 0;
+        }
+        
+        h1,
+        h2,
+        h3 {
+            font-weight: 700
+        }
+        
+        p {
+            color: var(--muted);
+        }
+        
+        .fade {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all .8s ease;
+        }
+        
+        .fade.show {
+            opacity: 1;
+            transform: none
+        }
+        /* NAV */
+        
+        header {
+            position: fixed;
+            width: 100%;
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            z-index: 999;
+        }
+        
+        nav {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 26px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--muted);
+            font-size: .9rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        /* HERO */
+        
+        .hero {
+            padding-top: 130px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            margin: 12px 0;
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+        }
+        
+        .hero img {
+            width: 230px;
+            border-radius: 0;
+            border: 6px solid var(--border);
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+            50% {
+                transform: translateY(-12px)
+            }
+        }
+        
+        .btn {
+            padding: 12px 26px;
+            border-radius: 8px;
+            border: 1px solid var(--primary);
+            margin-right: 10px;
+            font-size: .9rem;
+            display: inline-block;
+            transition: .3s;
+        }
+        
+        .btn.primary {
+            background: var(--primary);
+            color: #fff;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+        /* CARDS */
+        
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            transition: .3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+        }
+        /* GRIDS */
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+        }
+        
+        .skill {
+            text-align: center;
+            padding: 18px;
+            border-radius: 10px;
+            background: #fff;
+            border: 1px solid var(--border);
+            transition: .3s;
+        }
+        
+        .skill:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: scale(1.05);
+        }
+        /* SOCIAL */
+        
+        .social a {
+            font-size: 1.3rem;
+            margin-right: 16px;
+            color: var(--muted);
+            transition: .3s;
+        }
+        
+        .social a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        /* FOOTER */
+        
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+        }
+        /* MOBILE */
+        
+        @media(max-width:768px) {
+            .hero-grid,
+            .grid-2 {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Nishan <span>Acharya</span> 😊</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO -->
+        <section class="hero fade">
+            <div class="hero-grid">
+                <div>
+                    <p>Hello 👋 I'm</p>
+                    <h1><span>Nishan Acharya</span></h1>
+                    <p>🎨 UI/UX Designer • 💻 Frontend Developer • 🧠 Problem Solver</p>
+                    <br>
+                    <a href="mailto:nishanacharya27@gmail.com" class="btn primary">📧 Email Me</a>
+                    <a href="Nishan_Acharya_CV.pdf" class="btn">📄 Download CV</a>
+
+                    <div class="social" style="margin-top:25px;">
+                        <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.facebook.com/imnishann" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com/imnishann" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div style="text-align:center">
+                    <img src="nishan.jpg" alt="Nishan Acharya" />
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="fade">
+            <h2>About Me 🙋‍♂️</h2><br>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🎓 Education</h3>
+                    <p>Bachelor's Degree (Running) — Pokhara University</p>
+                    <p>+2 Computer Science — GPA 3.24</p>
+                    <p>SEE — GPA 3.30</p>
+                </div>
+                <div class="card">
+                    <h3>✨ Profile</h3>
+                    <p>I design user-friendly digital experiences using UI/UX principles and modern web technologies. I enjoy transforming ideas into attractive, usable products.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="fade">
+            <h2>Skills 🚀</h2><br>
+            <div class="skills">
+                <div class="skill">UI/UX Design</div>
+                <div class="skill">Graphic Design</div>
+                <div class="skill">JavaScript</div>
+                <div class="skill">CSS</div>
+                <div class="skill">Python</div>
+                <div class="skill">C Programming</div>
+                <div class="skill">Responsive Design</div>
+                <div class="skill">Problem Solving</div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="fade">
+            <h2>Projects 🧩</h2><br>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🌐 Portfolio Website</h3>
+                    <p>Fully responsive portfolio using HTML, CSS and JS with animations.</p>
+                </div>
+                <div class="card">
+                    <h3>📱 UI Design Case Study</h3>
+                    <p>Mobile app wireframes and visual design created with UI/UX principles.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="fade">
+            <h2>Contact Me 📬</h2><br>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>📧 Gmail</h3>
+                    <p>nishanacharya27@gmail.com</p>
+                </div>
+                <div class="card">
+                    <h3>🌍 Social Media</h3>
+                    <p>LinkedIn • GitHub • Instagram</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        © 2026 Nishan Acharya ✨ All Rights Reserved
+    </footer>
+
+    <script>
+        // Scroll animation
+        const faders = document.querySelectorAll('.fade');
+        const appear = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        faders.forEach(fade => appear.observe(fade));
+    </script>
+
+</body>
+
+</html>

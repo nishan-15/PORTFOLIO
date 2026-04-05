@@ -129,9 +129,17 @@
         
         .hero img {
             width: 230px;
-            border-radius: 0;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 24px;
             border: 6px solid var(--border);
             animation: float 4s ease-in-out infinite;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .hero-image-container {
+            text-align: center;
         }
         
         @keyframes float {
@@ -141,6 +149,18 @@
             }
             50% {
                 transform: translateY(-12px)
+            }
+        }
+        
+        @media(max-width:768px) {
+            .hero-image-container {
+                order: -1;
+                margin-bottom: 24px;
+            }
+            .hero img {
+                width: 200px;
+                height: 200px;
+                animation: none;
             }
         }
         
@@ -276,8 +296,8 @@
                     </div>
                 </div>
 
-                <div style="text-align:center ">
-                    <img src="photo1.jpeg " alt="Nishan Acharya " />
+                <div class="hero-image-container">
+                    <img src="photo1.jpeg" alt="Nishan Acharya" />
                 </div>
             </div>
         </section>
@@ -294,7 +314,7 @@
                 </div>
                 <div class="card ">
                     <h3>✨ Profile</h3>
-                    <p>I design user-friendly digital experiences using UI/UX principles and modern web technologies. I enjoy transforming ideas into attractive, usable products.</p>
+                    <p>I design user friendly digital experiences using UI/UX principles and modern web technologies. I enjoy transforming ideas into attractive, usable products.</p>
                 </div>
             </div>
         </section>

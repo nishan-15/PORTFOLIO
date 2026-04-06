@@ -55,12 +55,55 @@
         .fade {
             opacity: 0;
             transform: translateY(40px);
-            transition: all .8s ease;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .fade.show {
             opacity: 1;
-            transform: none
+            transform: none;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+            }
         }
         /* NAV */
         
@@ -97,10 +140,27 @@
         .nav-links a {
             color: var(--muted);
             font-size: .9rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .nav-links a:hover {
             color: var(--primary);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
         }
         /* HERO */
         
@@ -118,9 +178,18 @@
             align-items: center;
         }
         
+        .hero div:first-child {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        
+        .hero-image-container {
+            animation: slideInRight 0.8s ease-out;
+        }
+        
         .hero h1 {
             font-size: 3.2rem;
             margin: 12px 0;
+            animation: slideInLeft 0.8s ease-out 0.2s backwards;
         }
         
         .hero h1 span {
@@ -128,14 +197,20 @@
         }
         
         .hero img {
-            width: 230px;
-            height: 230px;
+            width: 240px;
+            height: 240px;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 70%;
             border: 6px solid var(--border);
-            animation: float 4s ease-in-out infinite;
+            animation: float 4s ease-in-out infinite, scaleUp 0.8s ease-out;
             display: block;
             margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+        
+        .hero img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.2);
         }
         
         .hero-image-container {
@@ -160,6 +235,7 @@
             .hero img {
                 width: 200px;
                 height: 200px;
+                border-radius: 70%;
                 animation: none;
             }
         }
@@ -167,11 +243,25 @@
         .btn {
             padding: 12px 26px;
             border-radius: 8px;
-            border: 1px solid var(--primary);
+            border: 2px solid var(--primary);
             margin-right: 10px;
             font-size: .9rem;
             display: inline-block;
-            transition: .3s;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: left 0.3s ease;
+            z-index: -1;
         }
         
         .btn.primary {
@@ -181,6 +271,12 @@
         
         .btn:hover {
             transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn:not(.primary):hover {
+            color: #fff;
+            background: var(--primary);
         }
         /* CARDS */
         
@@ -189,12 +285,76 @@
             border: 1px solid var(--border);
             border-radius: 14px;
             padding: 24px;
-            transition: .3s;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+        /* EDUCATION CARDS */
+        
+        .education-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .education-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .education-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .education-card .year {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        
+        .education-card .toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            margin-left: auto;
+        }
+        
+        .education-card.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .education-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .education-card.active .education-details {
+            max-height: 600px;
+        }
+        
+        .education-details p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin: 12px 0;
+            animation: slideInLeft 0.5s ease-out 0.1s backwards;
+        }
+        
+        .education-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
         }
         /* GRIDS */
         
@@ -216,13 +376,16 @@
             border-radius: 10px;
             background: #fff;
             border: 1px solid var(--border);
-            transition: .3s;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
         }
         
         .skill:hover {
-            background: var(--primary);
-            color: #fff;
+            color: var(--primary);
             transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+            border-color: var(--primary);
         }
         /* SOCIAL */
         
@@ -230,12 +393,21 @@
             font-size: 1.3rem;
             margin-right: 16px;
             color: var(--muted);
-            transition: .3s;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.05);
         }
         
         .social a:hover {
-            color: var(--primary);
-            transform: translateY(-3px);
+            color: #fff;
+            background: var(--primary);
+            transform: translateY(-8px) rotate(5deg);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
         }
         /* FOOTER */
         
@@ -303,16 +475,57 @@
         </section>
 
         <!-- ABOUT -->
-        <section id="about " class="fade ">
-            <h2>About Me </h2><br>
-            <div class="grid-2 ">
-                <div class="card ">
-                    <h3>🎓 Education</h3>
-                    <p>Bachelor's Degree (Running) — Pokhara University</p>
-                    <p>+2 Computer Science — GPA 3.24</p>
-                    <p>SEE — GPA 3.30</p>
+        <section id="about" class="fade">
+            <h2>About Me</h2><br>
+            <div class="grid-2">
+                <div>
+                    <h3 style="margin-bottom: 20px;">Education</h3>
+                    <div class="education-container">
+                        <div class="education-card" onclick="toggleEducation(this)">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <h4 style="margin: 0; flex: 1;">🎓 School (SEE)</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <p class="year">Grade 10</p>
+                            <div class="education-details">
+                                <p><strong>School Name:</strong> Narayani Model Secondary School</p>
+                                <p><strong>Location:</strong> Bharatpur-10,Chitwan</p>
+                                <p><strong>GPA:</strong> 3.30</p>
+                                <p>Completed my SLC (SEE) examination with excellent grades. Focused on science subjects with strong foundation in Mathematics and English.</p>
+                            </div>
+                        </div>
+
+                        <div class="education-card" onclick="toggleEducation(this)">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <h4 style="margin: 0; flex: 1;">📚 +2 Computer Science</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <p class="year">Grade 11-12</p>
+                            <div class="education-details">
+                                <p><strong>College Name:</strong> Valmiki Shiksha Sadan</p>
+                                <p><strong>Location:</strong> Bharatpur-4,Chitwan</p>
+                                <p><strong>GPA:</strong> 3.24</p>
+                                <p>Completed higher secondary education with specialization in Computer Science. Studied advance programming, database design, and web technologies.</p>
+                            </div>
+                        </div>
+
+                        <div class="education-card" onclick="toggleEducation(this)">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <h4 style="margin: 0; flex: 1;">🏫 University</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <p class="year">Bachelor's (Running)</p>
+                            <div class="education-details">
+                                <p><strong>University:</strong> Pokhara University</p>
+                                <p><strong>College:</strong> United Technical College</p>
+                                <p><strong>Location:</strong> Bharatpur-11,Chitwan</p>
+                                <p><strong>Degree:</strong> Bachelor's in Computer Engineering</p>
+                                <p>Currently pursuing a Bachelor's degree with focus on networking, software development, hardware design, and web technologies. Actively involved in projects and internships.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card ">
+                <div class="card">
                     <h3>✨ Profile</h3>
                     <p>I design user friendly digital experiences using UI/UX principles and modern web technologies. I enjoy transforming ideas into attractive, usable products.</p>
                 </div>
@@ -384,6 +597,17 @@
         });
 
         faders.forEach(fade => appear.observe(fade));
+
+        // Education card toggle
+        function toggleEducation(card) {
+            const allCards = document.querySelectorAll('.education-card');
+            allCards.forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('active');
+                }
+            });
+            card.classList.toggle('active');
+        }
     </script>
 
 </body>
